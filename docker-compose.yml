@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  mysqldb:
+    image: mysql:latest
+    container_name: mysqldb
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "mysqldb" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    ports:
+      - '3307:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: dockFood
+
+
+  food-service:
+    image: food-service
+    container_name: food
+    build: .
+    environment:
+      DB_HOST: mysqldb
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+    ports:
+      - "4041:4041"
+      
+    restart: always
+
+

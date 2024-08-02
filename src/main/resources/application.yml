@@ -1,16 +1,16 @@
-spring:
-  application:
-    name: JRTP701-DockerWithMysql
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-   # url: jdbc:mysql://localhost:3306/dockFood
-    url: jdbc:mysql:///dockFood
-    username: root
-    password: 1234
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    database-platform: org.hibernate.dialect.MySQL8Dialect
 server:
   port: 4041
+spring:
+    application:
+     name: Food_Project
+     
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://${DB_HOST:localhost}:3306/dockFood?createDatabaseIfNotExist=true
+        username: root
+        password: 1234
+        
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
